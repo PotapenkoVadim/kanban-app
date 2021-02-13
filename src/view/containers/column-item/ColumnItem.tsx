@@ -1,4 +1,4 @@
-import React, { ChangeEvent } from 'react';
+import React, { ChangeEvent, KeyboardEvent } from 'react';
 // @ts-ignore
 import styles from './ColumnItem.module.less';
 import { PropsType, StateType } from './interface';
@@ -14,11 +14,23 @@ export class ColumnItem extends React.Component<PropsType, StateType> {
     this.setState( prev => ({ ...prev, [name]: value }));
   }
 
+  onEnterHandler = ( e:KeyboardEvent<HTMLInputElement> ):void => {
+    if (e.key === 'Enter') {
+      console.log('Board: ' + this.props.boardId + ' colunm: ' + this.props.column.id);
+    }
+  }
+
   render () {
     return (
       <div className={ styles['display'] }>
         <span>{ this.props.column.title }</span>
-        <input type='text' value={ this.state.inputValue } name='inputValue' onChange={ this.changeHandler } />
+        <input
+          type='text'
+          value={ this.state.inputValue }
+          name='inputValue'
+          onChange={ this.changeHandler }
+          onKeyPress={ this.onEnterHandler }
+        />
         <div className={ styles['task-list'] }>
           {
             this.props.column.tasks?.map(v => <TaskItem key={ v!.id } title={ v!.title } />)

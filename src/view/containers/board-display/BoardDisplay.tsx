@@ -51,7 +51,7 @@ export const BoardDisplay = observer(class extends React.Component<PropsType, St
           {
             openTaskDisplay && board[0]?.columns?.length
               ? board[0]?.columns!.map( v => (
-                <ColumnItem key={ v!.id } column={ v! } />
+                <ColumnItem key={ v!.id } column={ v! } boardId={ board[0]!.id } />
               ))
               : null
           }
