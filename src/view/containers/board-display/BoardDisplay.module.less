@@ -1,0 +1,42 @@
+.display {
+  position: relative;
+  display: none;
+  width: 100%;
+  margin: 1.5rem 0;
+  padding: 1rem 0;
+  border: 1px solid lightgrey;
+  box-shadow: 1px 1px 5px grey;
+  text-align: center;
+  &>div {
+    display: flex;
+    align-items: stretch;
+    flex-wrap: wrap;
+    min-height: 100px;
+    margin: 0 1rem 1rem;
+  }
+  h3 {
+    font-size: 18px;
+    font-family: monospace;
+    letter-spacing: 1px;
+    color: #333;
+  }
+  .close,.delete {
+    display: block;
+    position: absolute;
+    top: 0;
+    background-color: #CC0000;
+    color: white;
+    padding: .3rem;
+    border: 1px solid #666;
+    border-radius: 3px;
+    font-family: monospace;
+    font-size: 10px;
+    box-shadow: 1px 1px 3px grey;
+    cursor: pointer;
+    user-select: none;
+  }
+  .delete { left: 0; }
+  .close { right: 0; }
+}
+
+.onDisplay { display:block; }
