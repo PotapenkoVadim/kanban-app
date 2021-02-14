@@ -8,10 +8,7 @@ import { ColumnItem } from '../column-item/ColumnItem';
 import { ColumnInputPanel } from '../../components/column-input-panel/ColumnInputPanel';
 
 export const BoardDisplay = observer(class extends React.Component<PropsType, StateType> {
-  state:StateType = {
-    inputValue: ''
-  }
-
+  state:StateType = { inputValue: '' };
   openColumnCreating = ():boolean => this.props.store.toggleColumnClick(true);
   closeColumnCreating = ():boolean => this.props.store.toggleColumnClick(false);
   closeBoardDisplay = ():string|null => this.props.store.toggleTaskDisplay(null);
@@ -51,7 +48,12 @@ export const BoardDisplay = observer(class extends React.Component<PropsType, St
           {
             openTaskDisplay && board[0]?.columns?.length
               ? board[0]?.columns!.map( v => (
-                <ColumnItem key={ v!.id } column={ v! } boardId={ board[0]!.id } />
+                <ColumnItem
+                  key={ v!.id }
+                  column={ v! }
+                  boardId={ board[0]!.id }
+                  addTask={ this.props.store.addTask }
+                />
               ))
               : null
           }

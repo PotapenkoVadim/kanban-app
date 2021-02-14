@@ -18,7 +18,8 @@ export class appStore {
       toggleBoardClick:action,
       toggleColumnClick:action,
       setColumn:action,
-      deleteBoard:action
+      deleteBoard:action,
+      addTask:action
     });
   }
 
@@ -39,14 +40,32 @@ export class appStore {
       tasks:[],
       id: Date.now().toString(),
     }
-    this.boards.filter( v => v!.id === this.openTaskDisplay)
-      .map(v => v?.columns?.push(newColumn));
+    this.boards.filter( v => v?.id === this.openTaskDisplay)
+      .forEach(v => v?.columns?.push(newColumn));
   }
 
   deleteBoard = ( id:string ):void => {
     this.boards.forEach( (v, i) => {
-      if (v!.id == id) delete this.boards[i];
+      if (v?.id == id) delete this.boards[i];
     });
     this.toggleTaskDisplay(null);
   }
+
+  addTask = ( boardId:string, columnId:string, title:string ):void => {
+    const newTask = {
+      title,
+      id: Date.now().toString(),
+    };
+    this.boards.forEach( v => {
+      if ( v?.id === boardId ) {
+        v.columns?.forEach( itm => {
+          if (itm?.id === columnId) {
+            itm.tasks?.push(newTask)
+          }
+        })
+      }
+    });
+
+    console.log(this.boards[0]!.columns[0]?.tasks[0].title)
+  };
 }

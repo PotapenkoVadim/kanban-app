@@ -1,23 +1,22 @@
 import React, { ChangeEvent, KeyboardEvent } from 'react';
+import { observer } from 'mobx-react';
 // @ts-ignore
 import styles from './ColumnItem.module.less';
 import { PropsType, StateType } from './interface';
 import { TaskItem } from '../../components/task-item/TaskItem';
 
-export class ColumnItem extends React.Component<PropsType, StateType> {
-  state:StateType = {
-    inputValue: ''
-  }
-
+export const ColumnItem = observer(class extends React.Component<PropsType, StateType> {
+  state:StateType = { inputValue: '' }
   changeHandler = ( event:ChangeEvent<HTMLInputElement> ):void => {
     const {name, value} = event.target;
     this.setState( prev => ({ ...prev, [name]: value }));
   }
 
   onEnterHandler = ( e:KeyboardEvent<HTMLInputElement> ):void => {
-    if (e.key === 'Enter') {
-      console.log('Board: ' + this.props.boardId + ' colunm: ' + this.props.column.id);
-    }
+    if (e.key === 'Enter' && this.state.inputValue) {
+      this.props.addTask( this.props.boardId, this.props.column.id, this.state.inputValue );
+      this.setState({ inputValue: '' });
+    };
   }
 
   render () {
@@ -39,4 +38,4 @@ export class ColumnItem extends React.Component<PropsType, StateType> {
       </div>
     );
   }
-}
+});
