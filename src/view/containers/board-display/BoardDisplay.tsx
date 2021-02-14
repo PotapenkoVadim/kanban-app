@@ -1,4 +1,4 @@
-import React, { ChangeEvent } from 'react';
+import React, { ChangeEvent, KeyboardEvent, MouseEvent } from 'react';
 import { observer } from 'mobx-react';
 // @ts-ignore
 import styles from './BoardDisplay.module.less';
@@ -22,12 +22,17 @@ export const BoardDisplay = observer(class extends React.Component<PropsType, St
     if (this.state.inputValue) {
       this.props.store.setColumn(this.state.inputValue);
       this.closeColumnCreating();
+      this.setState({ inputValue: '' });
     }
   }
   
-  deleteBoard = ( e:React.MouseEvent<HTMLElement> ):void => {
+  deleteBoard = ( e:MouseEvent<HTMLElement> ):void => {
     const target = e.target as HTMLElement;
     this.props.store.deleteBoard(target.dataset.id!);
+  }
+
+  onEnterPress = ( e:KeyboardEvent<HTMLInputElement> ):void => {
+    if (e.key === 'Enter' && this.state.inputValue) this.setColumnTitle();
   }
   
   render () {
@@ -64,6 +69,7 @@ export const BoardDisplay = observer(class extends React.Component<PropsType, St
                 changeHandler={ this.handlerChange }
                 setColumnTitle={ this.setColumnTitle }
                 closePanel={ this.closeColumnCreating }
+                pressEnter={ this.onEnterPress }
               />
               : <ColumnBtn handlerClick={ this.openColumnCreating } />
           }

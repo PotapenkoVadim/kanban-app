@@ -59,13 +59,9 @@ export class appStore {
     this.boards.forEach( v => {
       if ( v?.id === boardId ) {
         v.columns?.forEach( itm => {
-          if (itm?.id === columnId) {
-            itm.tasks?.push(newTask)
-          }
-        })
+          if (itm?.id === columnId) itm.tasks?.push(newTask)
+        });
       }
     });
-
-    console.log(this.boards[0]!.columns[0]?.tasks[0].title)
   };
 }

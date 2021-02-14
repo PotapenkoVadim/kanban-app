@@ -7,10 +7,17 @@ export const ColumnInputPanel:React.FC<PropsType> = ({
   value,
   changeHandler,
   setColumnTitle,
-  closePanel
+  closePanel,
+  pressEnter
 }) => (
   <div className={ styles['display'] }>
-    <input type='text' value={value} name='inputValue' onChange={ changeHandler } />
+    <input
+      onChange={ changeHandler }
+      onKeyPress={ pressEnter }
+      name='inputValue'
+      value={value}
+      type='text'
+    />
     <button onClick={ setColumnTitle }>Create</button>
     <span onClick={ closePanel }>&times;</span>
   </div>

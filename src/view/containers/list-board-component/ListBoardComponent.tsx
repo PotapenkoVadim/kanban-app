@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { MouseEvent } from 'react';
 import { observer } from 'mobx-react';
 // @ts-ignore
 import styles from './ListBoardComponent.module.less';
@@ -10,7 +10,7 @@ export const ListBoardComponent = observer(class extends React.Component<PropsTy
     super (props);
   }
 
-  clickHandler = ( e:React.MouseEvent<HTMLElement>) => {
+  clickHandler = ( e:MouseEvent<HTMLElement>) => {
     const target = e.target as HTMLElement;
     const {toggleTaskDisplay, toggleBoardClick} = this.props.store;
     toggleTaskDisplay(target.dataset.id!);
