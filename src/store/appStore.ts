@@ -6,6 +6,7 @@ export class appStore {
   openTaskDisplay:string|null = null;
   isClickedBoardCreating:boolean = false;
   isClickedColumnCreating:boolean = false;
+  rerender:boolean = false;
 
   constructor () {
     makeObservable(this, {
@@ -19,7 +20,8 @@ export class appStore {
       toggleColumnClick:action,
       setColumn:action,
       deleteBoard:action,
-      addTask:action
+      addTask:action,
+      deleteTask:action
     });
   }
 
@@ -59,9 +61,19 @@ export class appStore {
     this.boards.forEach( v => {
       if ( v?.id === boardId ) {
         v.columns?.forEach( itm => {
-          if (itm?.id === columnId) itm.tasks?.push(newTask)
+          if (itm?.id === columnId)
+            itm.tasks?.push(newTask)
         });
       }
     });
   };
+
+  deleteTask = ( boardId:string, columnId:string, taskId:string ):void => {
+    let boardIndex = this.boards.findIndex(b => b?.id === boardId);
+    let columnIndex = this.boards[boardIndex]?.columns?.findIndex(c => c?.id === columnId);
+    // @ts-ignore
+    let taskIndex = this.boards[boardIndex]?.columns[columnIndex]?.tasks.findIndex(t => t?.id === taskId);
+    // @ts-ignore
+    delete(this.boards[boardIndex]?.columns[columnIndex]?.tasks[taskIndex]);
+  }
 }

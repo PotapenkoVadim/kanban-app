@@ -7,9 +7,35 @@
   padding: .5rem 0;
   margin: .5rem 0;
   box-shadow: 3px 3px 5px #333;
+  user-select: none;
   cursor: grab;
   &>span {
     padding: 0;
     margin: 0;
   }
 }
+
+.clone-display {
+  position: absolute;
+  width: 150px;
+  min-height: none !important;
+  display: none;
+  align-items: center;
+  justify-content: space-around;
+  border: 1px solid lightgrey;
+  border-radius: 3px;
+  padding: .5rem 0;
+  margin: .5rem 0;
+  box-shadow: 3px 3px 5px #333;
+  background-color: white;
+  cursor: grabbing;
+  &>span {
+    padding: 0;
+    margin: 0;
+    font-family: monospace;
+    font-weight: bold;
+  }
+}
+
+.show-clone { display: flex; }
+.hide-task { display: none; }
